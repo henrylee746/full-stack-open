@@ -1,62 +1,12 @@
-const Header = (props) => {
-  return (
-    <>
-      <h1>{props.course.name}</h1>
-    </>
-  );
-};
-
-const Part = ({ part, exercise }) => {
-  return (
-    <>
-      <p>
-        {part} {exercise}
-      </p>
-    </>
-  );
-};
-
-const Content = ({ parts }) => {
-  return (
-    <>
-      {parts.parts.map((part) => (
-        <Part part={part.name} exercise={part.exercises} />
-      ))}
-    </>
-  );
-};
-
-const Total = ({ parts }) => {
-  const total = parts.parts.reduce((sum, b) => sum + b.exercises, 0);
-  return <>{total}</>;
-};
+import { useState } from "react";
 
 const App = () => {
-  const course = {
-    name: "Half Stack application development",
-    parts: [
-      {
-        name: "Fundamentals of React",
-        exercises: 10,
-      },
-      {
-        name: "Using props to pass data",
-        exercises: 7,
-      },
-      {
-        name: "State of a component",
-        exercises: 14,
-      },
-    ],
-  };
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
-  return (
-    <div>
-      <Header course={course} />
-      <Content parts={course} />
-      <Total parts={course} />
-    </div>
-  );
+  return <div>code here</div>;
 };
 
 export default App;
