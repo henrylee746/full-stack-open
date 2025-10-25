@@ -1,3 +1,4 @@
+import { log } from "console";
 import { useState } from "react";
 
 const VoteButton = ({ onClick }) => <button onClick={onClick}>vote</button>;
