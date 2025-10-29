@@ -67,7 +67,9 @@ app.get("/api/persons/:id", (req, res) => {
 });
 
 app.delete("/api/persons/:id", (req, res) => {
+  const person = people.find((person) => person.id === req.params.id);
   people = people.filter((person) => person.id !== req.params.id);
+  res.json(person);
   res.status(204).end();
 });
 
@@ -92,7 +94,7 @@ app.post("/api/persons", (request, response) => {
 
   const person = {
     name: body.name,
-    numer: body.number,
+    number: body.number,
     id: getRandomInt(10000),
   };
 
