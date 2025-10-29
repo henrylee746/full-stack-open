@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const cors = require("cors");
+const cors = require("cors"); //don't need cors if front and backend are under same directory
 
+app.use(express.static("dist"));
 app.use(cors());
 
 app.use(express.json());

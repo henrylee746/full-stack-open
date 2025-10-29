@@ -5,7 +5,7 @@ content-type: application/json
     "name": "sample"
 }
 ###
-POST http://localhost:3001/api/persons/ HTTP/1.1
+POST https://full-stack-open-1-6v06.onrender.com/api/persons HTTP/1.1
 content-type: application/json
 
 {
