@@ -95,7 +95,7 @@ app.post("/api/persons", (request, response) => {
   const person = {
     name: body.name,
     number: body.number,
-    id: getRandomInt(10000),
+    id: String(getRandomInt(10000)),
   };
 
   people.push(person);
