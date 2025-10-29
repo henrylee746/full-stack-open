@@ -19,11 +19,10 @@ const PersonForm = ({
       return;
     }
     e.preventDefault();
-    let id = 0;
+    let id;
     const newPerson = {
       name: newName,
       number: newNumber,
-      id: String(persons.length + 1),
     };
     const existingPersonArr = persons.filter(
       (person) => person.name == newPerson.name

@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
 import Footer from "./components/Footer";
 import Note from "./components/Note";
-import noteService from "./services/notes";
+import noteService from "./services/notes.js";
 import Notification from "./components/Notification";
-import axios from "axios";
 
 const App = (props) => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("a new note...");
   const [showAll, setShowAll] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("some error happened...");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const toggleImportanceOf = (id) => {
-    const url = `http://localhost:3001/notes/${id}`; //template literal/strings
+    //const url = `http://localhost:3001/notes/${id}`; //template literal/strings
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important }; //spread operator
 
@@ -35,6 +34,7 @@ const App = (props) => {
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
       setNotes(initialNotes);
+      console.log(initialNotes);
     });
   }, []);
   console.log("render", notes.length, "notes");
