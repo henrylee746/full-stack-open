@@ -45,23 +45,28 @@ const PersonForm = ({
             setNewName("");
             setNewNumber("");
             setNewMessage(`Updated ${newPerson.name}'s phone number`);
+            setError(null);
           })
           .catch((error) => {
-            console.log(error);
-            setError(
-              `Information of ${newPerson.name} has already been removed from the server`
-            );
-            setNewName("");
-            setNewNumber("");
+            setError(error.response.data.error);
+            setNewMessage(null);
           });
       }
     } else {
-      personService.create(newPerson).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson));
-      });
-      setNewName("");
-      setNewNumber("");
-      setNewMessage(`Added ${newPerson.name}`);
+      personService
+        .create(newPerson)
+        .then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson));
+          setNewName("");
+          setNewNumber("");
+          setNewMessage(`Added ${newPerson.name}`);
+          setError(null);
+        })
+        .catch((error) => {
+          console.log(error.response);
+          setError(error.response.data.error);
+          setNewMessage(null);
+        });
     }
   };
   return (
