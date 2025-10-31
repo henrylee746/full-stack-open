@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "VS code rest client is pretty handy tool",
+  "author": "henry lee",
+  "url": "url/api/blog",
+  "likes": 2
+ }
