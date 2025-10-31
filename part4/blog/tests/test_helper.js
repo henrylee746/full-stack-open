@@ -6,27 +6,21 @@ const initialBlogs = [
     author: "henry lee",
     url: "url/api/blog",
     likes: 2,
-    id: "690388c3b797890675903a44",
   },
   {
-    title: "VS code rest client is pretty handy tool",
+    title: "Testing",
     author: "henry lee",
     url: "url/api/blog",
     likes: 2,
-    id: "69038e91949dc3d48c2fa897",
   },
 ];
 
-const createBlog = async () => {
-  const blog = new Blog({
-    title: "New Blog through POST",
-    author: "Henry",
-    url: "/api/blogs",
-    likes: 1,
-  });
-  await blog.save();
+const getAllBlogs = async () => {
+  const blogs = await Blog.find({});
+  return blogs.map((blog) => blog.toJSON());
 };
 
 module.exports = {
-  createBlog,
+  initialBlogs,
+  getAllBlogs,
 };

@@ -75,8 +75,6 @@ test("a valid note can be added ", async () => {
     .expect(201)
     .expect("Content-Type", /application\/json/);
 
-  const response = await api.get("/api/notes");
-
   const notesAtEnd = await helper.notesInDb();
   assert.strictEqual(notesAtEnd.length, helper.initialNotes.length + 1);
 

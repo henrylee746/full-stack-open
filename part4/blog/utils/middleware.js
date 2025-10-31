@@ -24,8 +24,13 @@ const errorHandler = (error, request, response, next) => {
   next(error);
 };
 
+const allOtherErrorsHandler = (error, req, res, next) => {
+  return res.status(500).json({ error: "Something went wrong!" });
+};
+
 module.exports = {
   requestLogger,
   unknownEndpoint,
   errorHandler,
+  allOtherErrorsHandler,
 };
