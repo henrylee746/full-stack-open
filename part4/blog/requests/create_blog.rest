@@ -1,9 +1,13 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbnJ5bGVlIiwiaWQiOiI2OTA1ODI5M2E1NzY5NGMwZDg2ODI0MWYiLCJpYXQiOjE3NjE5NzgxNjl9.ndIx_p_cuFmMApFe6j-rxWx6YsH4javIYKdJQlkYS1Y
 
 {
-  "title": "VS code rest client is pretty handy tool",
+  "title": "another id-linked blog w/ authorization",
   "author": "henry lee",
   "url": "url/api/blog",
-  "likes": 2
- }
+  "likes": 2,
+  "userId": "6905845749f03e6f44f9b4d4"
+}
+
+//Using a Bearer from an already-created user who possessess a token
