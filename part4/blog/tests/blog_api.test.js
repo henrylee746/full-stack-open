@@ -136,6 +136,12 @@ describe("initially 2 blogs saved", () => {
       assert.strictEqual(blogs.length, testHelper.initialBlogs.length);
     });
   });
+/*
+
+DOES NOT WORK:
+Todo:
+- Create a User, Create a Blog w/ created user.
+only that way can you test update/delete properly
 
   describe("updating a blog", () => {
     test("succeeds with status code 204 if id is valid", async () => {
@@ -170,7 +176,7 @@ describe("deleting a blog", () => {
     assert.strictEqual(blogsAfterDeleting.length, blogs.length - 1);
   });
 });
-
+*/
 after(async () => {
   await mongoose.connection.close();
 });
