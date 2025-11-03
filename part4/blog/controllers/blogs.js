@@ -21,7 +21,7 @@ blogsRouter.post("/", middleware.getUserFrom, async (request, response) => {
     author,
     url,
     likes,
-    user: user._id, //_id is an ObjectId
+    user: user,
   });
 
   const savedBlog = await blog.save();
@@ -50,17 +50,16 @@ blogsRouter.delete(
 );
 
 blogsRouter.put("/:id", async (request, response) => {
-  const { title, author, url, likes } = request.body;
-  const blog = await Blog.findById(request.params.id);
-  if (!blog) {
-    return response.status(404).end();
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    request.params.id,
+    { $inc: { likes: 1 } }, //increments likes by 1
+    { new: true, runValidators: true }
+  ).populate("user");
+
+  if (!updatedBlog) {
+    return response.status(404).json({ error: "blog not found" });
   }
 
-  Object.assign(blog, { title, author, url, likes });
-  //shorthand object syntax, really means:
-  // {title: title, ... etc}
-
-  const updatedBlog = await blog.save();
   response.status(201).json(updatedBlog);
 });
 
