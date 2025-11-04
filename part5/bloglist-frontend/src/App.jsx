@@ -61,6 +61,34 @@ const App = () => {
     }, 3000);
   };
 
+  const handleLikes = async (blog) => {
+    try {
+      const updatedBlog = await blogService.update(blog.id, blog);
+      const index = blogs.indexOf(
+        blogs.find((blog) => blog.id == updatedBlog.id)
+      );
+      blogs[index] = updatedBlog;
+      setBlogs([...blogs]);
+    } catch (e) {
+      console.error(e.response?.data?.error || e.message);
+      setErrorMessage(e.response?.data?.error || e.message);
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
+  };
+
+  const handleRemove = async (blog) => {
+    try {
+      const id = blog.id;
+      await blogService.remove(blog.id);
+      const updatedBlogs = blogs.filter((blog) => blog.id !== id);
+      setBlogs([...updatedBlogs]);
+    } catch (e) {
+      console.error(e.response?.data?.error || e.message);
+      setErrorMessage(e.response?.data?.error || e.message);
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
+  };
+
   if (user === null) {
     return (
       <div>
@@ -102,14 +130,14 @@ const App = () => {
         <BlogForm handleBlogSubmit={handleBlogSubmit} />
       </Togglable>
       {blogs
-        .sort((a, b) => a.likes - b.likes)
+        .sort((a, b) => b.likes - a.likes)
         .map((blog) => (
           <Blog
-            blogs={blogs}
-            setBlogs={setBlogs}
             key={blog.id}
             blog={blog}
-            setErrorMessage={setErrorMessage}
+            handleLikes={handleLikes}
+            handleRemove={handleRemove}
+            user={user}
           />
         ))}
     </div>

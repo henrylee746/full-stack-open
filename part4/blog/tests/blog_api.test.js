@@ -136,47 +136,48 @@ describe("initially 2 blogs saved", () => {
       assert.strictEqual(blogs.length, testHelper.initialBlogs.length);
     });
   });
-/*
-
-DOES NOT WORK:
-Todo:
-- Create a User, Create a Blog w/ created user.
-only that way can you test update/delete properly
-
-  describe("updating a blog", () => {
-    test("succeeds with status code 204 if id is valid", async () => {
-      const blogs = await testHelper.getAllBlogs();
-      const blogToUpdate = blogs[0];
-
-      await api
-        .put(`/api/blogs/${blogToUpdate.id}`)
-        .send(testHelper.blogUsedToUpdate)
-        .expect(201)
-        .expect("Content-Type", /application\/json/);
-
-      const blogsAfterUpdating = await testHelper.getAllBlogs();
-      const contents = blogsAfterUpdating.map((blog) => blog.title);
-      assert(!contents.includes(blogToUpdate.title));
-      assert(contents.includes(testHelper.blogUsedToUpdate.title));
+  /*
+  
+  DOES NOT WORK:
+  Todo:
+  - Create a User, Create a Blog w/ created user.
+  only that way can you test update/delete properly
+  
+    describe("updating a blog", () => {
+      test("succeeds with status code 204 if id is valid", async () => {
+        const blogs = await testHelper.getAllBlogs();
+        const blogToUpdate = blogs[0];
+  
+        await api
+          .put(`/api/blogs/${blogToUpdate.id}`)
+          .send(testHelper.blogUsedToUpdate)
+          .expect(201)
+          .expect("Content-Type", /application\/json/);
+  
+        const blogsAfterUpdating = await testHelper.getAllBlogs();
+        const contents = blogsAfterUpdating.map((blog) => blog.title);
+        assert(!contents.includes(blogToUpdate.title));
+        assert(contents.includes(testHelper.blogUsedToUpdate.title));
+      });
     });
   });
-});
-
-describe("deleting a blog", () => {
-  test("succeeds with status code 204 if id is valid", async () => {
-    const blogs = await testHelper.getAllBlogs();
-    const blogToDelete = blogs[0];
-
-    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
-
-    const blogsAfterDeleting = await testHelper.getAllBlogs();
-    const contents = blogsAfterDeleting.map((blog) => blog.title);
-    assert(!contents.includes(blogToDelete.title));
-
-    assert.strictEqual(blogsAfterDeleting.length, blogs.length - 1);
+  
+  describe("deleting a blog", () => {
+    test("succeeds with status code 204 if id is valid", async () => {
+      const blogs = await testHelper.getAllBlogs();
+      const blogToDelete = blogs[0];
+  
+      await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+  
+      const blogsAfterDeleting = await testHelper.getAllBlogs();
+      const contents = blogsAfterDeleting.map((blog) => blog.title);
+      assert(!contents.includes(blogToDelete.title));
+  
+      assert.strictEqual(blogsAfterDeleting.length, blogs.length - 1);
+    });
   });
-});
-*/
-after(async () => {
-  await mongoose.connection.close();
+  */
+  after(async () => {
+    await mongoose.connection.close();
+  });
 });

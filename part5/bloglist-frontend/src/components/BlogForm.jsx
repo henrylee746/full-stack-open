@@ -27,6 +27,7 @@ const BlogForm = ({ handleBlogSubmit }) => {
             <input
               type="text"
               value={blogData.title}
+              placeholder="title"
               onChange={({ target }) =>
                 setBlogData({ ...blogData, title: target.value })
               }
@@ -39,6 +40,7 @@ const BlogForm = ({ handleBlogSubmit }) => {
             <input
               type="text"
               value={blogData.author}
+              placeholder="author"
               onChange={({ target }) =>
                 setBlogData({ ...blogData, author: target.value })
               }
@@ -51,6 +53,7 @@ const BlogForm = ({ handleBlogSubmit }) => {
             <input
               type="text"
               value={blogData.url}
+              placeholder="url"
               onChange={({ target }) =>
                 setBlogData({ ...blogData, url: target.value })
               }

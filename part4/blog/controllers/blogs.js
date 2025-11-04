@@ -35,11 +35,20 @@ blogsRouter.delete(
   middleware.getUserFrom,
   async (request, response) => {
     const blog = await Blog.findById(request.params.id);
-
     const user = request.user;
+
+    if (!user) {
+      return response
+        .status(400)
+        .json({ error: "userId missing or not valid" });
+    }
 
     if (blog.user.toString() === user._id.toString()) {
       await Blog.findOneAndDelete(blog);
+      user.blogs = user.blogs.filter(
+        (blogId) => blogId.toString() !== blog._id.toString()
+      );
+      await user.save();
       response.status(204).end();
     } else {
       return response
