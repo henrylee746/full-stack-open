@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 const anecdotesAtStart = [
   "If it hurts, do it more often",
   "Adding manpower to a late software project makes it later!",
@@ -19,44 +21,29 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject);
 
-const reducer = (state = initialState, action) => {
-  console.log("state now: ", state);
-  console.log("action", action);
-
-  switch (action.type) {
-    case "vote":
-      const foundAnecdote = state.find(
-        (anecdote) => anecdote.id === action.payload.id
-      );
-      const updatedAnecdote = {
-        ...foundAnecdote,
-        votes: foundAnecdote.votes + 1,
-      };
-
-      return state.map((anecdote) =>
-        anecdote.id === action.payload.id ? updatedAnecdote : anecdote
-      );
-    case "create":
-      return [...state, action.payload];
-    default:
-      return state;
-  }
-};
-
-export const createAnecdote = (content) => {
-  return {
-    type: "create",
-    payload: asObject(content),
-  };
-};
-
-export const incrementVote = (id) => {
-  return {
-    type: "vote",
-    payload: {
-      id,
+const anecdoteSlice = createSlice({
+  name: "anecdotes",
+  initialState,
+  reducers: {
+    createAnecdote(state, action) {
+      //type anecdotes/createAnecdote
+      state.push(asObject(action.payload));
+      //don't need to return bc state is being mutated
     },
-  };
-};
+    incrementVote(state, action) {
+      const id = action.payload;
+      const anecdoteToChange = state.find((anecdote) => anecdote.id === id);
+      const changedAnecdote = {
+        ...anecdoteToChange,
+        votes: anecdoteToChange.votes + 1,
+      };
+      return state.map((anecdote) =>
+        anecdote.id === id ? changedAnecdote : anecdote
+      );
+      //returning because state is being replaced w new arr
+    },
+  },
+});
 
-export default reducer;
+export const { createAnecdote, incrementVote } = anecdoteSlice.actions;
+export default anecdoteSlice.reducer;

@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { createAnecdote } from "../reducers/anecdoteReducer";
+import { displayNotification } from "../reducers/notificationReducer";
 
 const AnecdoteForm = () => {
   const addAnecdote = (e) => {
@@ -7,6 +8,7 @@ const AnecdoteForm = () => {
     const content = e.target.anecdote.value;
     e.target.anecdote.value = "";
     dispatch(createAnecdote(content));
+    dispatch(displayNotification(`You voted ${content}`));
   };
   const dispatch = useDispatch();
   return (
