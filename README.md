@@ -31,6 +31,7 @@ A collection of exercises (work in progress) from the university-accredited cour
 - E2E testing using Playwright
 
 ### Part 6: Adv. State Management (Curr)
-- Redux
-- Reducers, useReducer
+- Redux/Redux Toolkit
+- Context API & Reducers (useReducer)
+- Tanstack Query/React Query
 
