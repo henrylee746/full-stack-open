@@ -30,7 +30,10 @@ A collection of exercises (work in progress) from the university-accredited cour
 - Testing React Apps: Unit & Integration tests using React-Testing-Library and Vitest
 - E2E testing using Playwright
 
-### Part 6: Adv. State Management (Curr)
-- Redux
-- Reducers, useReducer
+### Part 6: Adv. State Management 
+- Redux/Redux Toolkit
+- Context API & Reducers (useReducer)
+- Tanstack Query/React Query
+
+### Part 7: React Router, Hooks, CSS/Webpack (Curr)
 
