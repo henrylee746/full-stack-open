@@ -1,13 +1,15 @@
-import NoteForm from "./components/NoteForm";
-import Notes from "./components/Notes";
-import VisibilityFilter from "./components/VisibilityFilter";
+import Button from "./components/Button";
+import Display from "./components/Display";
 
 const App = () => {
   return (
     <div>
-      <NoteForm />
-      <VisibilityFilter />
-      <Notes />
+      <Display />
+      <div>
+        <Button type="INC" label="+" />
+        <Button type="DEC" label="-" />
+        <Button type="ZERO" label="0" />
+      </div>
     </div>
   );
 };

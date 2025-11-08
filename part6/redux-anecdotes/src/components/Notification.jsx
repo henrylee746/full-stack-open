@@ -1,5 +1,7 @@
-import { useSelector, useDispatch } from "react-redux";
-import { hideNotification } from "../reducers/notificationReducer";
+import { useSelector } from "react-redux";
+
+//needed if we want to truly reset the timer every time a vote
+//or new anecdote is created while an existing timer is running
 
 const Notification = () => {
   const style = {
@@ -8,15 +10,7 @@ const Notification = () => {
     borderWidth: 1,
     marginBottom: 10,
   };
-
-  const dispatch = useDispatch();
-
   const message = useSelector((state) => state.notification);
-
-  if (message)
-    setTimeout(() => {
-      dispatch(hideNotification(""));
-    }, 5000);
 
   return <>{message ? <div style={style}>{message}</div> : message}</>;
 };
