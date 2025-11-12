@@ -6,6 +6,8 @@ const notificationReducer = (state, action) => {
       return action.payload;
     case "HIDE":
       return "";
+    case "ERROR":
+      return action.payload;
     default:
       return state;
   }

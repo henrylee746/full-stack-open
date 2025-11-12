@@ -47,15 +47,23 @@ export const makeBlog = (content) => {
 
 export const updateBlog = (id) => {
   return async (dispatch) => {
-    const blog = await blogService.update(id);
-    dispatch(replaceBlog(blog));
-    dispatch(setNotification(`you liked ${blog.title}`));
+    try {
+      const blog = await blogService.update(id);
+      dispatch(replaceBlog(blog));
+      dispatch(setNotification(`you liked ${blog.title}`));
+    } catch (e) {
+      dispatch(setNotification(e.response?.data?.error));
+    }
   };
 };
 
 export const removeBlog = (id) => {
   return async (dispatch) => {
-    await blogService.remove(id);
-    dispatch(deleteBlog(id));
+    try {
+      await blogService.remove(id);
+      dispatch(deleteBlog(id));
+    } catch (e) {
+      dispatch(setNotification(e.response?.data?.error));
+    }
   };
 };

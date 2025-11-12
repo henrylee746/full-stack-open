@@ -30,7 +30,12 @@ const App = () => {
   };
 
   if (user === null) {
-    return <LoginForm />;
+    return (
+      <>
+        <Notification />
+        <LoginForm />
+      </>
+    );
   }
   return (
     <div>

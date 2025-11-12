@@ -23,7 +23,10 @@ const App = () => {
   return (
     <>
       {!user ? (
-        <LoginForm />
+        <>
+          <Notification />
+          <LoginForm />
+        </>
       ) : (
         <div>
           <h2>blogs</h2>

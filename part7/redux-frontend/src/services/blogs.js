@@ -12,6 +12,21 @@ const getAll = async () => {
   return response.data;
 };
 
+/* Equivalent if using Fetch API 
+const get = async () => {
+  const response = await fetch(baseUrl);
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(
+      `Response failed with status message ${response.status}, ${error}`
+    );
+  }
+  const data = await response.json();
+  return data;
+};
+*/
+
 const create = async (newObject) => {
   const config = {
     headers: { Authorization: token },

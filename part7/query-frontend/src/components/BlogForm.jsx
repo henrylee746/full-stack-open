@@ -1,9 +1,10 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import NotificationContext from "../contexts/NotificationContext";
 import { useMutation } from "@tanstack/react-query";
 import blogService from "../services/blogs";
 
 const BlogForm = () => {
+  const timeoutId = useRef(null);
   const { notificationDispatch } = useContext(NotificationContext);
 
   const newBlogMutation = useMutation({
@@ -32,11 +33,12 @@ const BlogForm = () => {
       url,
       likes: 0,
     });
+    if (timeoutId.current) clearTimeout(timeoutId.current);
     notificationDispatch({
       type: "SET",
       payload: `a new blog ${title} by ${author} added`,
     });
-    setTimeout(() => {
+    timeoutId.current = setTimeout(() => {
       notificationDispatch({
         type: "HIDE",
       });

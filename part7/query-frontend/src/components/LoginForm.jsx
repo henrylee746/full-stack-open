@@ -1,20 +1,36 @@
 import loginService from "../services/login";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import UserContext from "../contexts/UserContext";
+import NotificationContext from "../contexts/NotificationContext";
 
 const LoginForm = () => {
+  const timeoutId = useRef(null);
   const { userDispatch } = useContext(UserContext);
+  const { notificationDispatch } = useContext(NotificationContext);
   const handleLogin = async (event) => {
     event.preventDefault();
     const [username, password] = [
       event.target.username.value,
       event.target.password.value,
     ];
-    const user = await loginService.login({ username, password });
-    userDispatch({
-      type: "login",
-      payload: user,
-    });
+    try {
+      const user = await loginService.login({ username, password });
+      userDispatch({
+        type: "login",
+        payload: user,
+      });
+    } catch (e) {
+      if (timeoutId.current) clearTimeout(timeoutId.current);
+      notificationDispatch({
+        type: "ERROR",
+        payload: e.response?.data?.error,
+      });
+    }
+    timeoutId.current = setTimeout(() => {
+      notificationDispatch({
+        type: "HIDE",
+      });
+    }, 3000);
   };
 
   return (
