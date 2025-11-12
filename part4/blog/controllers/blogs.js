@@ -12,7 +12,7 @@ blogsRouter.get("/", async (request, response) => {
 
 blogsRouter.post("/", middleware.getUserFrom, async (request, response) => {
   const body = request.body;
-  const { title, author, url, likes, userId } = body;
+  const { title, author, url, likes } = body;
 
   const user = request.user;
 
