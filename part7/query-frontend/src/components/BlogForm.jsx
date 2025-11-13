@@ -2,8 +2,10 @@ import { useState, useContext, useRef } from "react";
 import NotificationContext from "../contexts/NotificationContext";
 import { useMutation } from "@tanstack/react-query";
 import blogService from "../services/blogs";
+import { useQueryClient } from "@tanstack/react-query";
 
 const BlogForm = () => {
+  const queryClient = useQueryClient();
   const timeoutId = useRef(null);
   const { notificationDispatch } = useContext(NotificationContext);
 
@@ -11,6 +13,7 @@ const BlogForm = () => {
     mutationFn: blogService.create,
     onSuccess: (blog) => {
       queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
       //Triggers new GET req every mutation
       //The alternative is to manually update the query state
       /*

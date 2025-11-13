@@ -35,7 +35,7 @@ const Users = () => {
         ""
       )}
       <Routes>
-        <Route path="/users/:id" element={<User user={user} />} />
+        <Route path=":id" element={<User user={user} />} />
       </Routes>
     </>
   );

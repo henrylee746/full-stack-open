@@ -3,8 +3,10 @@ import UserContext from "../contexts/UserContext";
 import blogService from "../services/blogs";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const Blog = ({ blog }) => {
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const queryClient = useQueryClient();
 
@@ -19,6 +21,7 @@ const Blog = ({ blog }) => {
     mutationFn: blogService.remove,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      navigate("/blogs");
     },
   });
 
@@ -28,7 +31,7 @@ const Blog = ({ blog }) => {
         <h3>
           {blog.title} authored by {blog.author}
         </h3>
-        <a href="/blogs">{blog.url}</a>
+        {blog.likes} like(s) <a href="/blogs">{blog.url}</a>
         <button onClick={() => updateBlogMutation.mutate(blog.id, blog)}>
           like
         </button>{" "}

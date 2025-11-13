@@ -2,6 +2,8 @@ import Blog from "./Blog";
 import blogService from "../services/blogs";
 import { useQuery } from "@tanstack/react-query";
 import { Routes, Route, Link, useMatch } from "react-router-dom";
+import Togglable from "./Togglable";
+import BlogForm from "./BlogForm";
 
 const Blogs = () => {
   const blogStyle = {
@@ -27,16 +29,25 @@ const Blogs = () => {
 
   return (
     <>
-      {blogs
-        .sort((a, b) => b.likes - a.likes)
-        .map((blog) => (
-          <div style={blogStyle} key={blog.id}>
-            <Link to={`/blogs/${blog.id}`}>
-              {blog.title}
-              {", " + blog.author}
-            </Link>
-          </div>
-        ))}
+      {!blog ? (
+        <>
+          <Togglable buttonLabel="create new blog">
+            <BlogForm />
+          </Togglable>
+          {blogs
+            .sort((a, b) => b.likes - a.likes)
+            .map((blog) => (
+              <div style={blogStyle} key={blog.id}>
+                <Link to={`/blogs/${blog.id}`}>
+                  {blog.title}
+                  {", " + blog.author}
+                </Link>
+              </div>
+            ))}
+        </>
+      ) : (
+        ""
+      )}
       <Routes>
         <Route path="/blogs/:id" element={<Blog blog={blog} />} />
       </Routes>
