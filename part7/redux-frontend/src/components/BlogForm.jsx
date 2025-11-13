@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { makeBlog } from "../reducers/blogReducer";
 import { useDispatch } from "react-redux";
+import Input from "./Input";
 
 const BlogForm = () => {
   const dispatch = useDispatch();
@@ -20,31 +21,13 @@ const BlogForm = () => {
     });
   };
 
-  const Input = ({ label }) => {
-    return (
-      <div>
-        <label>
-          {label}
-          <input
-            type="text"
-            value={blogData[label]}
-            placeholder={label}
-            onChange={({ target }) =>
-              setBlogData({ ...blogData, [label]: target.value })
-            }
-          />
-        </label>
-      </div>
-    );
-  };
-
   return (
     <div>
       <h2>create new</h2>
       <form onSubmit={addBlog}>
-        <Input label="title" />
-        <Input label="author" />
-        <Input label="url" />
+        <Input label="title" blogData={blogData} setBlogData={setBlogData} />
+        <Input label="author" blogData={blogData} setBlogData={setBlogData} />
+        <Input label="url" blogData={blogData} setBlogData={setBlogData} />
         <button type="submit">create</button>
       </form>
     </div>

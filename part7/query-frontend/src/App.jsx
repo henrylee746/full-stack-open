@@ -6,6 +6,7 @@ import Notification from "./components/Notification";
 import Togglable from "./components/Togglable";
 import BlogForm from "./components/BlogForm";
 import LoginForm from "./components/LoginForm";
+import Users from "./components/Users";
 
 const App = () => {
   const { user, userDispatch } = useContext(UserContext);
@@ -47,6 +48,7 @@ const App = () => {
         <BlogForm />
       </Togglable>
       <Blogs />
+      <Users />
     </div>
   );
 };
