@@ -1,7 +1,6 @@
 const blogsRouter = require("express").Router();
+
 const Blog = require("../models/blog");
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
 const middleware = require("../utils/middleware");
 require("dotenv").config();
 
@@ -12,7 +11,7 @@ blogsRouter.get("/", async (request, response) => {
 
 blogsRouter.post("/", middleware.getUserFrom, async (request, response) => {
   const body = request.body;
-  const { title, author, url, likes } = body;
+  const { title, author, url } = body;
 
   const user = request.user;
 
@@ -20,7 +19,8 @@ blogsRouter.post("/", middleware.getUserFrom, async (request, response) => {
     title,
     author,
     url,
-    likes,
+    likes: 0,
+    comments: [],
     user: user,
   });
 
@@ -69,7 +69,27 @@ blogsRouter.put("/:id", async (request, response) => {
     return response.status(404).json({ error: "blog not found" });
   }
 
-  response.status(201).json(updatedBlog);
+  response.status(200).json(updatedBlog);
+});
+
+blogsRouter.put("/:id/comments", async (req, res) => {
+  const { comment } = req.body;
+
+  try {
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      req.params.id,
+      { $push: { comments: comment } },
+      { new: true, runValidators: true }
+    ).populate("user");
+
+    if (!updatedBlog) {
+      return res.status(404).json({ error: "blog not found" });
+    }
+
+    return res.status(200).json(updatedBlog);
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
 });
 
 module.exports = blogsRouter;
