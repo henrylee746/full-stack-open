@@ -36,4 +36,9 @@ A collection of exercises (work in progress) from the university-accredited cour
 - Tanstack Query/React Query
 
 ### Part 7: React Router, Hooks, CSS/Webpack (Curr)
-
+- React Router, Nested Routes
+- Custom Hooks (use<Something>)
+- Styling using component libraries (primarily MUI), TailwindCSS
+- Webpack and Loaders/Transpilers (babel vs swc), other alternatives such as esbuild/Turbopack (Next.js)
+- Class components
+- Miscellaneous topics: Socket.IO, React Reconciliation Algorithm, Web Security & Vulnerabilities (e.g. XSS attacks, SQL injections), etc.
