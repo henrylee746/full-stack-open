@@ -25,19 +25,24 @@ let persons = [
 ];
 
 const typeDefs = `
-  type Person {
-    name: String!
-    phone: String
-    street: String!
-    city: String! 
-    id: ID!
-  }
 
-  type Query {
-    personCount: Int!
-    allPersons: [Person!]!
-    findPerson(name: String!): Person
-  }
+type Address {
+  street: String!
+  city: String! 
+}
+
+type Person {
+  name: String!
+  phone: String
+  address: Address!
+  id: ID!
+}
+
+type Query {
+  personCount: Int!
+  allPersons: [Person!]!
+  findPerson(name: String!): Person
+}
 `;
 
 const resolvers = {
@@ -45,6 +50,15 @@ const resolvers = {
     personCount: () => persons.length,
     allPersons: () => persons,
     findPerson: (root, args) => persons.find((p) => p.name === args.name),
+  },
+  Person: {
+    address: (root) => {
+      //root is the object itself (here it's the address obj)
+      return {
+        street: root.street,
+        city: root.city,
+      };
+    },
   },
 };
 
