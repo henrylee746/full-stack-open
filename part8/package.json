@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.21.0",
+  "packageManager": "pnpm@10.22.0",
   "dependencies": {
     "@apollo/server": "^5.1.0",
     "graphql": "^16.12.0",
