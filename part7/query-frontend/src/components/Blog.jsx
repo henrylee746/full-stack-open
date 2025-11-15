@@ -75,8 +75,8 @@ const Blog = ({ blog }) => {
             </form>
           </div>
           <ul>
-            {blog.comments.map((comment) => (
-              <li key={comment}>{comment}</li>
+            {blog.comments.map((comment, index) => (
+              <li key={`${comment + index}`}>{comment}</li>
             ))}
           </ul>
         </div>

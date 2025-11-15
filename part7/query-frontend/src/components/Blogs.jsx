@@ -4,6 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Routes, Route, Link, useMatch } from "react-router-dom";
 import Togglable from "./Togglable";
 import BlogForm from "./BlogForm";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Box from "@mui/material/Box";
 
 const Blogs = () => {
   const blogStyle = {
@@ -34,16 +39,38 @@ const Blogs = () => {
           <Togglable buttonLabel="create new blog">
             <BlogForm />
           </Togglable>
-          {blogs
-            .sort((a, b) => b.likes - a.likes)
-            .map((blog) => (
-              <div style={blogStyle} key={blog.id}>
-                <Link to={`/blogs/${blog.id}`}>
-                  {blog.title}
-                  {", " + blog.author}
-                </Link>
-              </div>
-            ))}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
+            <List
+              sx={{
+                maxWidth: 360,
+                bgcolor: "background.paper",
+              }}
+            >
+              {blogs
+                .sort((a, b) => b.likes - a.likes)
+                .map((blog) => (
+                  <ListItem
+                    key={blog.id}
+                    sx={{ display: "flex", justifyContent: "center" }}
+                  >
+                    <ListItemButton component={Link} to={`/blogs/${blog.id}`}>
+                      <ListItemText
+                        primary={"Title: " + blog.title + ", by " + blog.author}
+                        sx={{ textAlign: "center" }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+            </List>
+          </Box>
         </>
       ) : (
         ""

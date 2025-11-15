@@ -2,6 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Routes, Route, Link, useMatch } from "react-router-dom";
 import userService from "../services/users";
 import User from "./User";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Box from "@mui/material/Box";
 
 const Users = () => {
   const { isLoading, error, data } = useQuery({
@@ -23,13 +28,32 @@ const Users = () => {
     <>
       {!user ? (
         <>
-          <h2>Users</h2>
-          {users.map((user) => (
-            <p key={user.id}>
-              <Link to={`/users/${user.id}`}>{user.username}</Link> with{" "}
-              {user.blogs.length} blogs created
-            </p>
-          ))}
+          <h2 className="italic">Users:</h2>
+          <List
+            sx={{
+              maxWidth: 360,
+              bgcolor: "background.paper",
+            }}
+          >
+            {users.map((user) => (
+              <ListItem
+                key={user.id}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
+                <ListItemButton component={Link} to={`/users/${user.id}`}>
+                  <ListItemText
+                    primary={
+                      user.username +
+                      " with " +
+                      user.blogs.length +
+                      " blogs created "
+                    }
+                    sx={{ textAlign: "center" }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
         </>
       ) : (
         ""

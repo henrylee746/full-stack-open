@@ -2,6 +2,8 @@ import loginService from "../services/login";
 import { useContext, useRef } from "react";
 import UserContext from "../contexts/UserContext";
 import NotificationContext from "../contexts/NotificationContext";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const LoginForm = () => {
   const timeoutId = useRef(null);
@@ -34,22 +36,12 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <h2>Log in to application</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>
-            username
-            <input type="text" name="username" />
-          </label>
-        </div>
-        <div>
-          <label>
-            password
-            <input type="password" name="password" />
-          </label>
-        </div>
-        <button type="submit">login</button>
+    <div className="flex flex-col gap-4 p-2 justify-center items-center">
+      <h2 className="font-bold">Log in to application</h2>
+      <form onSubmit={handleLogin} className="flex flex-col gap-2">
+        <TextField label="username" name="username" />
+        <TextField label="password" type="password" name="password" />
+        <Button type="submit">Login</Button>
       </form>
     </div>
   );

@@ -3,6 +3,8 @@ import NotificationContext from "../contexts/NotificationContext";
 import { useMutation } from "@tanstack/react-query";
 import blogService from "../services/blogs";
 import { useQueryClient } from "@tanstack/react-query";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const BlogForm = () => {
   const queryClient = useQueryClient();
@@ -49,28 +51,20 @@ const BlogForm = () => {
   };
 
   return (
-    <div>
-      <h2>create new</h2>
-      <form onSubmit={handleBlogSubmit}>
+    <div className="m-4">
+      <form onSubmit={handleBlogSubmit} className="flex flex-col gap-2">
         <div>
-          <label>
-            title:
-            <input name="title" type="text" placeholder="title" />
-          </label>
+          <TextField name="username" type="text" placeholder="username" />
         </div>
         <div>
-          <label>
-            author:
-            <input name="author" type="text" placeholder="author" />
-          </label>
+          <TextField name="author" type="text" placeholder="Jane Doe.." />
         </div>
         <div>
-          <label>
-            url:
-            <input name="url" type="text" placeholder="url" />
-          </label>
+          <TextField name="url" type="text" placeholder="/url/something" />
         </div>
-        <button type="submit">create</button>
+        <Button sx={{ mt: 2, color: "secondary", display: "block" }}>
+          create
+        </Button>
       </form>
     </div>
   );

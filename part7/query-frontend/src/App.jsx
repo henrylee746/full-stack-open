@@ -32,21 +32,23 @@ const App = () => {
 
   if (user === null) {
     return (
-      <>
+      <div className="flex flex-col justify-center items-center h-screen">
         <Notification />
         <LoginForm />
-      </>
+      </div>
     );
   }
   return (
     <div>
       <Header />
-      <h2>blog app</h2>
-      <Notification />
-      <Routes>
-        <Route path="/*" element={<Blogs />}></Route>
-        <Route path="/users/*" element={<Users />}></Route>
-      </Routes>
+      <div className="flex flex-col h-screen justify-center items-center">
+        <h1 className="italic font-bold">Blog App</h1>
+        <Notification />
+        <Routes>
+          <Route path="/*" element={<Blogs />}></Route>
+          <Route path="/users/*" element={<Users />}></Route>
+        </Routes>
+      </div>
     </div>
   );
 };

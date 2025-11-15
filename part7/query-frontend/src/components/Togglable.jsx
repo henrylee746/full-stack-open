@@ -1,10 +1,11 @@
 import { useState } from "react";
+import Button from "@mui/material/Button";
 
 const Togglable = (props) => {
   const [visible, setVisible] = useState(false);
 
   const hideWhenVisible = { display: visible ? "none" : "block" };
-  const showWhenVisible = { display: visible ? "block" : "none" };
+  const showWhenVisible = { display: visible ? "flex" : "none" };
 
   const toggleVisibility = () => {
     setVisible(!visible);
@@ -13,11 +14,29 @@ const Togglable = (props) => {
   return (
     <div>
       <div style={hideWhenVisible}>
-        <button onClick={toggleVisibility}>{props.buttonLabel}</button>
+        <Button
+          sx={{ my: 2, color: "white", display: "block" }}
+          variant="contained"
+          onClick={toggleVisibility}
+        >
+          {props.buttonLabel}
+        </Button>
       </div>
-      <div style={showWhenVisible}>
+      <div style={{ ...showWhenVisible, flexDirection: "column" }}>
         {props.children}
-        <button onClick={toggleVisibility}>cancel</button>
+        <Button
+          sx={{
+            mb: 2,
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          variant="contained"
+          onClick={toggleVisibility}
+        >
+          cancel
+        </Button>
       </div>
     </div>
   );
