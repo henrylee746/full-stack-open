@@ -3,7 +3,6 @@ import { useState } from "react";
 import { ALL_AUTHORS, UPDATE_AUTHOR } from "../../queries";
 
 const Authors = () => {
-  const [name, setName] = useState("");
   const [born, setBorn] = useState("");
   const [error, setError] = useState("");
 
@@ -18,12 +17,11 @@ const Authors = () => {
     },
   });
 
-  console.log(authors.data);
-
   const handleUpdate = (e) => {
     e.preventDefault();
-    updateAuthor({ variables: { name, born: Number(born) } });
-    setName("");
+    updateAuthor({
+      variables: { name: e.target.selectedAuthor.value, born: Number(born) },
+    });
     setBorn("");
   };
 
@@ -54,11 +52,14 @@ const Authors = () => {
       <h2>Set birthyear</h2>
       <form onSubmit={handleUpdate}>
         <div>
-          name
-          <input
-            value={name}
-            onChange={({ target }) => setName(target.value)}
-          />
+          <label>name</label>
+          <select name="selectedAuthor">
+            {authors.data.allAuthors.map((a, i) => (
+              <option key={`${a.name}${i}`} value={a.name}>
+                {a.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           born
