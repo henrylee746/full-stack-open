@@ -4,6 +4,7 @@ import { ALL_PERSONS } from "./queries";
 import { useState } from "react";
 import PersonForm from "./components/PersonForm";
 import Notify from "./components/Notify";
+import PhoneForm from "./components/PhoneForm";
 
 const App = () => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -26,6 +27,7 @@ const App = () => {
       <Notify errorMessage={errorMessage} />
       <Persons persons={result.data.allPersons} />
       <PersonForm setError={notify} />
+      <PhoneForm setError={notify} />
     </div>
   );
 };
