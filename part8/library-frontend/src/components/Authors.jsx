@@ -1,18 +1,35 @@
-import { useQuery } from "@apollo/client/react";
+import { useQuery, useMutation } from "@apollo/client/react";
 import { useState } from "react";
-import { ALL_AUTHORS } from "../../queries";
+import { ALL_AUTHORS, UPDATE_AUTHOR } from "../../queries";
 
 const Authors = () => {
   const [name, setName] = useState("");
   const [born, setBorn] = useState("");
+  const [error, setError] = useState("");
 
   const authors = useQuery(ALL_AUTHORS);
+  const [updateAuthor] = useMutation(UPDATE_AUTHOR, {
+    refetchQueries: [{ query: ALL_AUTHORS }],
+    onError: (error) => {
+      setTimeout(() => {
+        setError(error.message);
+      });
+      setError(null);
+    },
+  });
+
+  console.log(authors.data);
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    updateAuthor({ variables: { name, born: Number(born) } });
+    setName("");
+    setBorn("");
+  };
 
   if (authors.loading) {
     return <div>loading...</div>;
   }
-
-  const handleUpdate = () => {};
 
   return (
     <div>
@@ -33,6 +50,7 @@ const Authors = () => {
           ))}
         </tbody>
       </table>
+      {error ? error : ""}
       <h2>Set birthyear</h2>
       <form onSubmit={handleUpdate}>
         <div>
@@ -49,7 +67,7 @@ const Authors = () => {
             onChange={({ target }) => setBorn(target.value)}
           />
         </div>
-        <button>update</button>
+        <button type="submit">update</button>
       </form>
     </div>
   );
