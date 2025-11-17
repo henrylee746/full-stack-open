@@ -15,7 +15,7 @@ const NewBook = () => {
     onError: (error) => {
       setTimeout(() => {
         setError(error.message);
-      });
+      }, 5000);
       setError(null);
     },
   });

@@ -12,7 +12,7 @@ const Authors = () => {
     onError: (error) => {
       setTimeout(() => {
         setError(error.message);
-      });
+      }, 5000);
       setError(null);
     },
   });
