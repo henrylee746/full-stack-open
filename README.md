@@ -42,3 +42,10 @@ A collection of exercises (work in progress) from the university-accredited cour
 - Webpack and Loaders/Transpilers (babel vs swc), other alternatives such as esbuild/Turbopack (Next.js)
 - Class components
 - Miscellaneous topics: Socket.IO, React Reconciliation Algorithm, Web Security & Vulnerabilities (e.g. XSS attacks, SQL injections), etc.
+
+### Part 8: GraphQL (Curr)
+- Apollo Server, defining type definitions & resolvers, queries/mutations
+- Fetching data using Apollo Client (gql, useQuery, useMutation)
+- Adding MongoDB & User Authentication
+
+
