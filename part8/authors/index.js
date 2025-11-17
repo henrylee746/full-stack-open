@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const Author = require("./models/author");
 const Book = require("./models/book");
+const user = require("../models/user");
 
 require("dotenv").config();
 
@@ -111,13 +112,15 @@ const typeDefs = `
     name: String!
     born: Int
     bookCount: Int!
+    id: ID!
   }
 
   type Book{
     title: String!
-    author: String!
+    author: Author!
     published: Int!
     genres: [String!]!
+    id: ID!
   }
 
   type Query {
@@ -144,48 +147,53 @@ const typeDefs = `
 const resolvers = {
   Query: {
     bookCount: () => Book.collection.countDocuments(),
-    authorCount: () => authors.length,
+    authorCount: () => Author.collection.countDocuments(),
     allBooks: (root, args) => {
       if (!args.author && !args.genre) {
-        return books;
+        return Book.find({});
       } else if (args.author && args.genre) {
-        return books
-          .filter((book) => book.genres.includes(args.genre))
-          .filter((book) => book.author === args.author);
+        return Book.find({ author: args.author, genres: args.genre });
       }
       return !args.genre
-        ? books.filter((book) => book.author === args.author)
-        : books.filter((book) => book.genres.includes(args.genre));
+        ? Book.find({ author: args.author })
+        : Book.find({ genres: args.genre });
     },
     allAuthors: () => {
-      return authors.map((author) => {
-        return {
-          name: author.name,
-          born: author.born,
-          bookCount: books.filter((book) => book.author === author.name).length,
-        };
-      });
+      return Author.find({});
     },
   },
   Mutation: {
-    addBook: (root, args) => {
-      if (!authors.find((author) => author.name === args.author)) {
-        authors = authors.concat({
-          name: args.author,
-          born: null,
-          id: uuid(),
-          bookCount: 0,
+    //start here
+    addBook: async (root, args) => {
+      if (!Author.find({ name: args.name })) {
+        const author = new Author({
+          title: args.name,
+          bookCount: 1,
+        });
+        try {
+          await author.save();
+        } catch (e) {
+          throw new GraphQLError("Saving author failed", {
+            extensions: {
+              code: "BAD_USER_INPUT",
+              invalidArgs: args,
+              error,
+            },
+          });
+        }
+      }
+      const book = new Book({ ...args });
+      try {
+        await book.save();
+      } catch (e) {
+        throw new GraphQLError("Saving book failed", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+            invalidArgs: args.name,
+            error,
+          },
         });
       }
-      const newBook = {
-        title: args.title,
-        author: args.author,
-        published: args.published,
-        id: uuid(),
-        genres: args.genres,
-      };
-      books = books.concat(newBook);
-      return newBook;
     },
     editAuthor: (root, args) => {
       const author = authors.find((author) => author.name === args.name);
