@@ -8,7 +8,14 @@ const PhoneForm = ({ setError }) => {
   const [phone, setPhone] = useState("");
 
   const [changeNumber, result] = useMutation(EDIT_NUMBER);
-  const submit = (event) => {
+
+  useEffect(() => {
+    if (result.data && result.data.editNumber === null) {
+      setError("person not found");
+    }
+  }, [result.data]);
+
+  const submit = async (event) => {
     event.preventDefault();
 
     changeNumber({ variables: { name, phone } });
@@ -16,12 +23,6 @@ const PhoneForm = ({ setError }) => {
     setName("");
     setPhone("");
   };
-
-  useEffect(() => {
-    if (result.data && result.data.editNumber === null) {
-      setError("person not found");
-    }
-  }, [result.data]);
 
   return (
     <div>
