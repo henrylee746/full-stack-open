@@ -8,11 +8,27 @@ import PhoneForm from "./components/PhoneForm";
 
 const App = () => {
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const [token, setToken] = useState(null);
   const result = useQuery(ALL_PERSONS);
+  const client = useApolloClient();
 
   if (result.loading) {
     return <div>loading...</div>;
+  }
+
+  const logout = () => {
+    setToken(null);
+    localStorage.clear();
+    client.resetStore();
+  };
+
+  if (!token) {
+    return (
+      <>
+        <Notify errorMessage={errorMessage} />
+        <LoginForm setToken={setToken} setError={notify} />
+      </>
+    );
   }
 
   const notify = (message) => {
@@ -21,6 +37,16 @@ const App = () => {
       setErrorMessage(null);
     }, 10000);
   };
+
+  if (!token) {
+    return (
+      <div>
+        <Notify errorMessage={errorMessage} />
+        <h2>Login</h2>
+        <LoginForm setToken={setToken} setError={notify} />
+      </div>
+    );
+  }
 
   return (
     <div>
