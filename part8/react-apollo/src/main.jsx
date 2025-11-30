@@ -2,10 +2,13 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-import { ApolloClient, InMemoryCache, HttpLink, gql } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 import { setContext } from "@apollo/client/link/context";
 
+/*The HTTPlink is modified by the context 
+defined by the authLink object so that a possible token 
+in localStorage is set to header 
+authorization for each request to the server.*/
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("phonenumbers-user-token");
   return {
@@ -16,27 +19,13 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const client = new ApolloClient({
-  link: new HttpLink({ uri: "http://localhost:4000" }),
-  cache: new InMemoryCache(),
+const httpLink = createHttpLink({
+  uri: "http://localhost:4000",
 });
 
-const query = gql`
-  query {
-    allPersons {
-      name
-      phone
-      address {
-        street
-        city
-      }
-      id
-    }
-  }
-`;
-
-client.query({ query }).then((response) => {
-  console.log(response.data);
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
