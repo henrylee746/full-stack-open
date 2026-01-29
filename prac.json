@@ -1,0 +1,37 @@
+[
+  {
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "year_published": 1937,
+    "genres": ["Fantasy"],
+    "copies_sold": 100000000
+  },
+  {
+    "title": "1984",
+    "author": "George Orwell",
+    "year_published": 1949,
+    "genres": ["Dystopian", "Political Fiction"],
+    "copies_sold": 50000000
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "year_published": 1960,
+    "genres": ["Southern Gothic", "Coming-of-Age"],
+    "copies_sold": 40000000
+  },
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "year_published": 1925,
+    "genres": ["Novel", "Historical Fiction"],
+    "copies_sold": 25000000
+  },
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "year_published": 1813,
+    "genres": ["Classic", "Regency Novel"],
+    "copies_sold": 20000000
+  }
+]

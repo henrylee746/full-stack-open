@@ -5,7 +5,7 @@ interface WeightAndHeight {
   value2: number;
 }
 
-export const parseArguments = (args: string[]): WeightAndHeight => {
+const parseArguments = (args: string[]): WeightAndHeight => {
   if (args.length < 4) throw new Error("Not enough arguments");
   if (args.length > 4) throw new Error("Too many arguments");
 
@@ -46,3 +46,5 @@ try {
 }
 
 //console.log("Your BMI message is:", returnBMIMessage(2, 5));
+
+export default parseArguments;
